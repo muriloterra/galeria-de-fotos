@@ -6,26 +6,26 @@ const initialImages = [
   {
     id: 1,
     src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1600&q=90",
-    category: "Nature",
-    title: "Mountain Peak",
+    category: "Natureza",
+    title: "Pico da Montanha",
   },
   {
     id: 2,
     src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1600&q=90",
-    category: "Landscape",
-    title: "Valley Fog",
+    category: "Paisagem",
+    title: "Névoa no Vale",
   },
   {
     id: 3,
     src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1600&q=90",
-    category: "Portrait",
-    title: "Urban Style",
+    category: "Retrato",
+    title: "Estilo Urbano",
   },
   {
     id: 4,
     src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&q=90",
-    category: "Nature",
-    title: "Forest Mist",
+    category: "Natureza",
+    title: "Névoa na Floresta",
   },
 ];
 
@@ -56,8 +56,8 @@ export default function Gallery() {
         id:
           images.length > 0 ? Math.max(...images.map((img) => img.id)) + 1 : 1,
         src: tempData.src,
-        category: tempData.category || "Upload",
-        title: tempData.title || "New Capture",
+        categoryId: tempData.category || "Upload",
+        title: tempData.title || "Nova Captura",
       };
       setImages((prev) => [...prev, newImage]);
     } else {
@@ -102,7 +102,9 @@ export default function Gallery() {
     const file = event.target.files[0];
     if (file) {
       if (!file.type.startsWith("image/")) {
-        alert("Please select a valid image file (PNG, JPG, JPEG, WEBP)");
+        alert(
+          "Por favor, selecione um arquivo de imagem válido (PNG, JPG, JPEG, WEBP)",
+        );
         return;
       }
       const newUrl = URL.createObjectURL(file);
@@ -117,7 +119,9 @@ export default function Gallery() {
     const file = event.target.files[0];
     if (file && selectedId) {
       if (!file.type.startsWith("image/")) {
-        alert("Please select a valid image file (PNG, JPG, JPEG, WEBP)");
+        alert(
+          "Por favor, selecione um arquivo de imagem válido (PNG, JPG, JPEG, WEBP)",
+        );
         return;
       }
       const newUrl = URL.createObjectURL(file);
@@ -287,7 +291,7 @@ export default function Gallery() {
             <Plus className="w-8 h-8 text-white/50 group-hover:text-white transition-colors duration-300" />
           </div>
           <span className="text-stone-400 group-hover:text-white font-medium transition-colors duration-300">
-            Add Photo
+            Adicionar Foto
           </span>
           <input
             type="file"
@@ -343,7 +347,7 @@ export default function Gallery() {
                 <button
                   onClick={handleDelete}
                   className="p-2 rounded-full bg-black/50 text-white hover:bg-red-500/80 transition-colors"
-                  title="Delete Image"
+                  title="Excluir Imagem"
                 >
                   <Trash2 size={20} className="sm:w-6 sm:h-6" />
                 </button>
@@ -351,7 +355,7 @@ export default function Gallery() {
                 <button
                   onClick={handleEditMetadataClick}
                   className="p-2 rounded-full bg-black/50 text-white hover:bg-white/20 transition-colors"
-                  title="Edit Info"
+                  title="Editar Informações"
                 >
                   <Type size={20} className="sm:w-6 sm:h-6" />
                 </button>
@@ -359,7 +363,7 @@ export default function Gallery() {
                 <button
                   onClick={handleEditClick}
                   className="p-2 rounded-full bg-black/50 text-white hover:bg-white/20 transition-colors"
-                  title="Change Image"
+                  title="Alterar Imagem"
                 >
                   <Pencil size={20} className="sm:w-6 sm:h-6" />
                 </button>
@@ -409,13 +413,15 @@ export default function Gallery() {
               className="bg-stone-900 p-6 rounded-2xl w-full max-w-md border border-stone-800 shadow-xl"
             >
               <h3 className="text-xl text-white font-medium mb-4">
-                {modalMode === "add" ? "Add New Photo" : "Edit Details"}
+                {modalMode === "add"
+                  ? "Adicionar Nova Foto"
+                  : "Editar Detalhes"}
               </h3>
 
               <div className="space-y-4">
                 <div>
                   <label className="block text-stone-400 text-sm mb-1">
-                    Title
+                    Título
                   </label>
                   <input
                     type="text"
@@ -424,13 +430,13 @@ export default function Gallery() {
                       setTempData({ ...tempData, title: e.target.value })
                     }
                     onKeyDown={(e) => e.key === "Enter" && handleSaveMetadata()}
-                    placeholder="e.g. Mountain View"
+                    placeholder="ex: Vista da Montanha"
                     className="w-full bg-black/50 border border-stone-700 rounded-lg p-2 text-white focus:outline-none focus:border-white/50 transition-colors"
                   />
                 </div>
                 <div>
                   <label className="block text-stone-400 text-sm mb-1">
-                    Category
+                    Categoria
                   </label>
                   <input
                     type="text"
@@ -439,7 +445,7 @@ export default function Gallery() {
                       setTempData({ ...tempData, category: e.target.value })
                     }
                     onKeyDown={(e) => e.key === "Enter" && handleSaveMetadata()}
-                    placeholder="e.g. Nature"
+                    placeholder="ex: Natureza"
                     className="w-full bg-black/50 border border-stone-700 rounded-lg p-2 text-white focus:outline-none focus:border-white/50 transition-colors"
                   />
                 </div>
@@ -450,13 +456,13 @@ export default function Gallery() {
                   onClick={() => setShowModal(false)}
                   className="px-4 py-2 rounded-lg text-stone-400 hover:text-white hover:bg-white/5 transition-colors"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
                   onClick={handleSaveMetadata}
                   className="px-4 py-2 rounded-lg bg-white text-black font-medium hover:bg-stone-200 transition-colors"
                 >
-                  Save
+                  Salvar
                 </button>
               </div>
             </motion.div>
