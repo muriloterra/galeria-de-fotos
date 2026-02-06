@@ -60,6 +60,4 @@ src/
 └── index.css          # Estilos globais
 ```
 
-## 📄 Licença
 
-MIT © Murilo Terra
